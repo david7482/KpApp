@@ -9,20 +9,21 @@ import android.widget.TextView;
 
 import com.david74.kpapp.R;
 import com.david74.kpapp.api.model.KpAlbumInfo;
+import com.david74.kpapp.app.viewholder.BaseViewHolder;
+import com.david74.kpapp.app.viewmodel.KpAlbumViewModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
+public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHolder> {
 
-    List<KpAlbumInfo> albumInfoList;
+    List<KpAlbumViewModel> albumModelList;
 
-    public AlbumAdapter() {
-        albumInfoList = new ArrayList<KpAlbumInfo>();
+    public KpAlbumAdapter() {
+        albumModelList = new ArrayList<KpAlbumViewModel>();
     }
 
     @Override
@@ -33,44 +34,37 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        KpAlbumInfo albumInfo = albumInfoList.get(position);
+        KpAlbumViewModel albumModel = albumModelList.get(position);
 
-        holder.modelTitle.setText(albumInfo.getTitle());
-        holder.modelSubtitle.setText(albumInfo.getDescription());
-        holder.modelView.setImageResource(android.R.color.transparent);
-        ImageLoader.getInstance().displayImage(albumInfo.getThumbnails().getSmall(), holder.modelView);
+        holder.modelTitle.setText(albumModel.getTitle());
+        ImageLoader.getInstance().displayImage(albumModel.getImageUrl(), holder.modelView);
     }
 
     @Override
     public int getItemCount() {
-        return albumInfoList.size();
+        return albumModelList.size();
     }
 
-    public void add(KpAlbumInfo albumInfo) {
-        albumInfoList.add(albumInfo);
+    public void add(KpAlbumViewModel albumModel) {
+        albumModelList.add(albumModel);
         notifyDataSetChanged();
     }
 
-    public void add(List<KpAlbumInfo> albumInfoList) {
-        this.albumInfoList.addAll(albumInfoList);
+    public void add(List<KpAlbumViewModel> albumModelList) {
+        this.albumModelList.addAll(albumModelList);
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        View view;
+    public static class ViewHolder extends BaseViewHolder {
 
         @InjectView(R.id.model_image)
         ImageView modelView;
+
         @InjectView(R.id.model_title)
         TextView modelTitle;
-        @InjectView(R.id.model_subtitle)
-        TextView modelSubtitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.inject(this, itemView);
-            this.view = itemView;
         }
     }
 }

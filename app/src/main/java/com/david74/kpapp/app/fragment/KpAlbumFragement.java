@@ -12,8 +12,11 @@ import android.widget.ProgressBar;
 import com.david74.kpapp.R;
 import com.david74.kpapp.api.KpApiCaller;
 import com.david74.kpapp.api.model.KpAlbumInfoWrapper;
-import com.david74.kpapp.app.adapter.AlbumAdapter;
+import com.david74.kpapp.app.adapter.KpAlbumAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
+import com.david74.kpapp.app.viewmodel.KpAlbumViewModel;
+
+import java.util.List;
 
 import butterknife.InjectView;
 import retrofit.Callback;
@@ -28,14 +31,14 @@ public class KpAlbumFragement extends BaseFragment {
     @InjectView(R.id.recycler_view_albums)
     ClickRecyclerView albumsRecyclerView;
 
-    private AlbumAdapter albumAdapter;
+    private KpAlbumAdapter kpAlbumAdapter;
     private LinearLayoutManager layoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        albumAdapter = new AlbumAdapter();
+        kpAlbumAdapter = new KpAlbumAdapter();
         layoutManager = new LinearLayoutManager(getActivity());
     }
 
@@ -49,7 +52,7 @@ public class KpAlbumFragement extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        albumsRecyclerView.setAdapter(albumAdapter);
+        albumsRecyclerView.setAdapter(kpAlbumAdapter);
         albumsRecyclerView.setLayoutManager(layoutManager);
         albumsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -64,7 +67,8 @@ public class KpAlbumFragement extends BaseFragment {
             @Override
             public void success(KpAlbumInfoWrapper kpAlbumInfoWrapper, Response response) {
                 if (kpAlbumInfoWrapper.isSuccess()) {
-                    albumAdapter.add(kpAlbumInfoWrapper.getData());
+                    List<KpAlbumViewModel> list = KpAlbumViewModel.ConvertToModelList(kpAlbumInfoWrapper.getData());
+                    kpAlbumAdapter.add(list);
                 }
                 hideLoding();
             }
