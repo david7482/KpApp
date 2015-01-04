@@ -1,4 +1,4 @@
-package com.david74.kpapp.app.viewmodel;
+package com.david74.kpapp.app.model;
 
 public interface Model {
 
@@ -7,4 +7,6 @@ public interface Model {
     public String getTitle();
 
     public String getDescription();
+
+    public String getId();
 }

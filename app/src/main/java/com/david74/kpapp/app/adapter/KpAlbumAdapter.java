@@ -8,9 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.david74.kpapp.R;
-import com.david74.kpapp.api.model.KpAlbumInfo;
 import com.david74.kpapp.app.viewholder.BaseViewHolder;
-import com.david74.kpapp.app.viewmodel.KpAlbumViewModel;
+import com.david74.kpapp.app.model.Model;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -20,10 +19,10 @@ import butterknife.InjectView;
 
 public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHolder> {
 
-    List<KpAlbumViewModel> albumModelList;
+    List<Model> albumModelList;
 
     public KpAlbumAdapter() {
-        albumModelList = new ArrayList<KpAlbumViewModel>();
+        albumModelList = new ArrayList<Model>();
     }
 
     @Override
@@ -34,7 +33,7 @@ public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        KpAlbumViewModel albumModel = albumModelList.get(position);
+        Model albumModel = albumModelList.get(position);
 
         holder.modelTitle.setText(albumModel.getTitle());
         ImageLoader.getInstance().displayImage(albumModel.getImageUrl(), holder.modelView);
@@ -45,14 +44,18 @@ public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHold
         return albumModelList.size();
     }
 
-    public void add(KpAlbumViewModel albumModel) {
+    public void add(Model albumModel) {
         albumModelList.add(albumModel);
         notifyDataSetChanged();
     }
 
-    public void add(List<KpAlbumViewModel> albumModelList) {
+    public void add(List<Model> albumModelList) {
         this.albumModelList.addAll(albumModelList);
         notifyDataSetChanged();
+    }
+
+    public Model get(int position) {
+        return this.albumModelList.get(position);
     }
 
     public static class ViewHolder extends BaseViewHolder {

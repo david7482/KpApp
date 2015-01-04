@@ -1,15 +1,15 @@
-package com.david74.kpapp.app.viewmodel;
+package com.david74.kpapp.app.model;
 
 import com.david74.kpapp.api.model.KpAlbumInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class KpAlbumViewModel implements Model {
+public class KpAlbumModel implements Model {
 
     KpAlbumInfo albumInfo;
 
-    public KpAlbumViewModel(KpAlbumInfo albumInfo) {
+    public KpAlbumModel(KpAlbumInfo albumInfo) {
         this.albumInfo = albumInfo;
     }
 
@@ -28,10 +28,15 @@ public class KpAlbumViewModel implements Model {
         return albumInfo.getDescription();
     }
 
-    public static List<KpAlbumViewModel> ConvertToModelList(List<KpAlbumInfo> albumInfoList) {
-        List<KpAlbumViewModel> list = new ArrayList<KpAlbumViewModel>();
+    @Override
+    public String getId() {
+        return albumInfo.getId();
+    }
+
+    public static List<Model> ConvertToModelList(List<KpAlbumInfo> albumInfoList) {
+        List<Model> list = new ArrayList<Model>();
         for (KpAlbumInfo albumInfo : albumInfoList) {
-            list.add(new KpAlbumViewModel(albumInfo));
+            list.add(new KpAlbumModel(albumInfo));
         }
         return list;
     }
