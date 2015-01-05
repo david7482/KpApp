@@ -3,7 +3,6 @@ package com.david74.kpapp.app.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.ProgressBar;
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.adapter.KpAlbumAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
+import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
 import com.david74.kpapp.app.model.KpAlbumModel;
 import com.david74.kpapp.app.presenter.KpAlbumListPresenter;
 import com.david74.kpapp.app.presenter.KpAlbumListPresenterImp;
@@ -55,9 +55,9 @@ public class KpAlbumFragement extends BaseFragment implements KpAlbumControl {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        albumsRecyclerView.setAdapter(kpAlbumAdapter);
         albumsRecyclerView.setLayoutManager(layoutManager);
-        albumsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        albumsRecyclerView.setItemAnimator(new SlideInLeftItemAnimator());
+        albumsRecyclerView.setAdapter(kpAlbumAdapter);
         albumsRecyclerView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, final int position, long id) {

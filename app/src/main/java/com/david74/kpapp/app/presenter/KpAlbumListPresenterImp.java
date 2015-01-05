@@ -23,11 +23,12 @@ public class KpAlbumListPresenterImp implements KpAlbumListPresenter {
         KpApiCaller.getApiCaller().getAlbumListAsync(new Callback<KpAlbumInfoWrapper>() {
             @Override
             public void success(KpAlbumInfoWrapper kpAlbumInfoWrapper, Response response) {
+                control.hideLoading();
+
                 if (kpAlbumInfoWrapper.isSuccess()) {
                     List<Model> list = KpAlbumModel.ConvertToModelList(kpAlbumInfoWrapper.getData());
                     control.add(list);
                 }
-                control.hideLoading();
             }
 
             @Override

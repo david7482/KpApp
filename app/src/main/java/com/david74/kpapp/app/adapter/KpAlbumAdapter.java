@@ -46,12 +46,13 @@ public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHold
 
     public void add(Model model) {
         albumModelList.add(model);
-        notifyDataSetChanged();
+        notifyItemInserted(albumModelList.size() - 1);
     }
 
     public void add(List<Model> modelList) {
-        this.albumModelList.addAll(modelList);
-        notifyDataSetChanged();
+        int positionStart = albumModelList.size();
+        albumModelList.addAll(modelList);
+        notifyItemRangeInserted(positionStart, modelList.size());
     }
 
     public Model get(int position) {
