@@ -1,6 +1,7 @@
 package com.david74.kpapp.app.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,9 +60,15 @@ public class KpAlbumFragement extends BaseFragment implements KpAlbumControl {
         albumsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         albumsRecyclerView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
-            public void onItemClick(RecyclerView parent, View view, int position, long id) {
-                KpAlbumModel albumModel = (KpAlbumModel)kpAlbumAdapter.get(position);
-                EventBus.getDefault().post(albumModel);
+            public void onItemClick(RecyclerView parent, View view, final int position, long id) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        KpAlbumModel albumModel = (KpAlbumModel)kpAlbumAdapter.get(position);
+                        EventBus.getDefault().post(albumModel);
+                    }
+                }, getResources().getInteger(R.integer.ripple_duration));
             }
         });
 
