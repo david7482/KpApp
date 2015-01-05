@@ -1,4 +1,4 @@
-package com.david74.kpapp.util;
+package com.david74.kpapp.util.logger;
 
 public class L
 {
