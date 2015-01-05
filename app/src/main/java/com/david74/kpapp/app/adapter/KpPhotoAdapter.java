@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.model.Model;
@@ -18,10 +17,11 @@ import java.util.List;
 import butterknife.InjectView;
 
 public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHolder> {
-    List<Model> albumModelList;
+
+    List<Model> modelList;
 
     public KpPhotoAdapter() {
-        albumModelList = new ArrayList<Model>();
+        modelList = new ArrayList<Model>();
     }
 
     @Override
@@ -32,27 +32,28 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Model photoModel = albumModelList.get(position);
+        Model photoModel = modelList.get(position);
         ImageLoader.getInstance().displayImage(photoModel.getImageUrl(), holder.modelView);
     }
 
     @Override
     public int getItemCount() {
-        return albumModelList.size();
+        return modelList.size();
     }
 
     public void add(Model model) {
-        albumModelList.add(model);
-        notifyDataSetChanged();
+        modelList.add(model);
+        notifyItemInserted(modelList.size() - 1);
     }
 
     public void add(List<Model> modelList) {
-        this.albumModelList.addAll(modelList);
-        notifyDataSetChanged();
+        int positionStart = this.modelList.size();
+        this.modelList.addAll(modelList);
+        notifyItemRangeInserted(positionStart, modelList.size());
     }
 
     public Model get(int position) {
-        return this.albumModelList.get(position);
+        return this.modelList.get(position);
     }
 
     public static class ViewHolder extends BaseViewHolder {

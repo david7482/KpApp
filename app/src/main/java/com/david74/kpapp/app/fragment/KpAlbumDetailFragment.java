@@ -16,6 +16,7 @@ import com.david74.kpapp.R;
 import com.david74.kpapp.app.activity.AlbumDetailActivity;
 import com.david74.kpapp.app.adapter.KpPhotoAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
+import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
 import com.david74.kpapp.app.model.Model;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenter;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenterImp;
@@ -80,7 +81,7 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
 
         photosRecycleView.setAdapter(kpPhotoAdapter);
         photosRecycleView.setLayoutManager(gridLayoutManager);
-        photosRecycleView.setItemAnimator(new DefaultItemAnimator());
+        photosRecycleView.setItemAnimator(new SlideInLeftItemAnimator());
         photosRecycleView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {

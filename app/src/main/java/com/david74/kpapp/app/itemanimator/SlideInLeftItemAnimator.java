@@ -1,6 +1,7 @@
 package com.david74.kpapp.app.itemanimator;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -35,25 +36,10 @@ public class SlideInLeftItemAnimator extends RecyclerView.ItemAnimator {
                 animator.setDuration(animationDuration);
                 animator.setInterpolator(new AccelerateDecelerateInterpolator());
                 animator.setStartDelay((animationDuration * viewHolder.getPosition()) / 10);
-                animator.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
+                animator.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         mPendingAdd.remove(viewHolder);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
                     }
                 });
                 animator.start();

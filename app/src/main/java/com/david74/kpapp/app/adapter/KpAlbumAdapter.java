@@ -19,10 +19,10 @@ import butterknife.InjectView;
 
 public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHolder> {
 
-    List<Model> albumModelList;
+    List<Model> modelList;
 
     public KpAlbumAdapter() {
-        albumModelList = new ArrayList<Model>();
+        modelList = new ArrayList<Model>();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Model albumModel = albumModelList.get(position);
+        Model albumModel = modelList.get(position);
 
         holder.modelTitle.setText(albumModel.getTitle());
         ImageLoader.getInstance().displayImage(albumModel.getImageUrl(), holder.modelView);
@@ -41,22 +41,22 @@ public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return albumModelList.size();
+        return modelList.size();
     }
 
     public void add(Model model) {
-        albumModelList.add(model);
-        notifyItemInserted(albumModelList.size() - 1);
+        modelList.add(model);
+        notifyItemInserted(modelList.size() - 1);
     }
 
     public void add(List<Model> modelList) {
-        int positionStart = albumModelList.size();
-        albumModelList.addAll(modelList);
+        int positionStart = this.modelList.size();
+        this.modelList.addAll(modelList);
         notifyItemRangeInserted(positionStart, modelList.size());
     }
 
     public Model get(int position) {
-        return this.albumModelList.get(position);
+        return this.modelList.get(position);
     }
 
     public static class ViewHolder extends BaseViewHolder {
