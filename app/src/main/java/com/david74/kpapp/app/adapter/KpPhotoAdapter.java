@@ -33,8 +33,6 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Model photoModel = albumModelList.get(position);
-
-        holder.modelTitle.setText(photoModel.getTitle());
         ImageLoader.getInstance().displayImage(photoModel.getImageUrl(), holder.modelView);
     }
 
@@ -61,9 +59,6 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
 
         @InjectView(R.id.model_image)
         ImageView modelView;
-
-        @InjectView(R.id.model_title)
-        TextView modelTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
