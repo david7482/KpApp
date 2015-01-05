@@ -2,10 +2,6 @@
 <resources>
 
     <string name="app_name">KpApp</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_kp_article">KpArticle</string>
-
-    <string name="kp_article">柯P的文章</string>
+    <string name="action_clear_cache">Clear Cache</string>
 
 </resources>

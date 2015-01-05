@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.model.KpAlbumModel;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import de.greenrobot.event.EventBus;
 
@@ -44,7 +45,9 @@ public class MainEntryActivity extends BaseActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_clear_cache) {
+            ImageLoader.getInstance().clearMemoryCache();
+            ImageLoader.getInstance().clearDiskCache();
             return true;
         }
         return super.onOptionsItemSelected(item);
