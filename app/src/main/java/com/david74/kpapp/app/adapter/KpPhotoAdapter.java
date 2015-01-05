@@ -26,7 +26,7 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View modelView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_album, parent, false);
+        View modelView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_photo, parent, false);
         return new ViewHolder(modelView);
     }
 
