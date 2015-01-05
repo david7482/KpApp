@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.david74.kpapp.R;
-import com.david74.kpapp.app.viewholder.BaseViewHolder;
 import com.david74.kpapp.app.model.Model;
+import com.david74.kpapp.app.viewholder.BaseViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -17,11 +17,10 @@ import java.util.List;
 
 import butterknife.InjectView;
 
-public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHolder> {
-
+public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHolder> {
     List<Model> albumModelList;
 
-    public KpAlbumAdapter() {
+    public KpPhotoAdapter() {
         albumModelList = new ArrayList<Model>();
     }
 
@@ -33,10 +32,10 @@ public class KpAlbumAdapter extends RecyclerView.Adapter<KpAlbumAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Model albumModel = albumModelList.get(position);
+        Model photoModel = albumModelList.get(position);
 
-        holder.modelTitle.setText(albumModel.getTitle());
-        ImageLoader.getInstance().displayImage(albumModel.getImageUrl(), holder.modelView);
+        holder.modelTitle.setText(photoModel.getTitle());
+        ImageLoader.getInstance().displayImage(photoModel.getImageUrl(), holder.modelView);
     }
 
     @Override
