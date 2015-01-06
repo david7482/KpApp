@@ -18,6 +18,7 @@ import com.david74.kpapp.app.model.KpAlbumModel;
 import com.david74.kpapp.app.presenter.KpAlbumListPresenter;
 import com.david74.kpapp.app.presenter.KpAlbumListPresenterImp;
 import com.david74.kpapp.app.model.Model;
+import com.david74.kpapp.util.appcontext.AppContext;
 
 import java.util.List;
 
@@ -61,8 +62,7 @@ public class KpAlbumFragement extends BaseFragment implements KpAlbumControl {
         albumsRecyclerView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, final int position, long id) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                AppContext.runOnMainUiThread(new Runnable() {
                     @Override
                     public void run() {
                         KpAlbumModel albumModel = (KpAlbumModel)kpAlbumAdapter.get(position);

@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".app.activity.AlbumDetailActivity" />
+        <activity android:name=".app.activity.PhotoViewerActivity" />
     </application>
 
 </manifest>

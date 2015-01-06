@@ -18,9 +18,12 @@ import com.david74.kpapp.app.adapter.KpPhotoAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
 import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
 import com.david74.kpapp.app.model.KpAlbumModel;
+import com.david74.kpapp.app.model.KpPhotoModel;
+import com.david74.kpapp.app.model.KpPhotosModel;
 import com.david74.kpapp.app.model.Model;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenter;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenterImp;
+import com.david74.kpapp.util.appcontext.AppContext;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.parceler.Parcels;
@@ -28,6 +31,7 @@ import org.parceler.Parcels;
 import java.util.List;
 
 import butterknife.InjectView;
+import de.greenrobot.event.EventBus;
 
 public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetailControl {
 
@@ -90,8 +94,15 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
         photosRecycleView.setItemAnimator(new SlideInLeftItemAnimator());
         photosRecycleView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
-            public void onItemClick(RecyclerView parent, View view, int position, long id) {
-
+            public void onItemClick(RecyclerView parent, View view, final int position, long id) {
+                AppContext.runOnMainUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Model> modelList = kpPhotoAdapter.getAll();
+                        KpPhotosModel photosModel = new KpPhotosModel(position, modelList);
+                        EventBus.getDefault().post(photosModel);
+                    }
+                }, getResources().getInteger(R.integer.ripple_duration));
             }
         });
 

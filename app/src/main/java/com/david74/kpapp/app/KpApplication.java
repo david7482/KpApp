@@ -25,6 +25,7 @@ public class KpApplication extends Application {
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .defaultDisplayImageOptions(options)
+                .memoryCacheSizePercentage(50)
                 .build();
 
         ImageLoader.getInstance().init(config);

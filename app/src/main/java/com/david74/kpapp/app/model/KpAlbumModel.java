@@ -11,6 +11,7 @@ import java.util.List;
 public class KpAlbumModel implements Model {
 
     String imageUrl;
+    String imageUrlHighResolution;
     String title;
     String descripion;
     String id;
@@ -21,13 +22,15 @@ public class KpAlbumModel implements Model {
 
     public KpAlbumModel(KpAlbumInfo albumInfo) {
         imageUrl = albumInfo.getThumbnails().getSmall();
+        imageUrlHighResolution = albumInfo.getThumbnails().getLarge();
         title = albumInfo.getTitle();
         descripion = albumInfo.getDescription();
         id = albumInfo.getId();
     }
 
-    public KpAlbumModel(String imageUrl, String title, String descripion, String id) {
+    public KpAlbumModel(String imageUrl, String imageUrlHighResolution, String title, String descripion, String id) {
         this.imageUrl = imageUrl;
+        this.imageUrlHighResolution = imageUrlHighResolution;
         this.title = title;
         this.descripion = descripion;
         this.id = id;
@@ -53,6 +56,11 @@ public class KpAlbumModel implements Model {
         return id;
     }
 
+    @Override
+    public String getImageUrlHighResolution() {
+        return imageUrlHighResolution;
+    }
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
@@ -71,6 +79,10 @@ public class KpAlbumModel implements Model {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setImageUrlHighResolution(String imageUrlHighResolution) {
+        this.imageUrlHighResolution = imageUrlHighResolution;
     }
 
     public static List<Model> ConvertToModelList(List<KpAlbumInfo> albumInfoList) {

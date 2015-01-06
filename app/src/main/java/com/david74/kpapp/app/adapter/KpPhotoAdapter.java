@@ -53,7 +53,11 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
     }
 
     public Model get(int position) {
-        return this.modelList.get(position);
+        return modelList.get(position);
+    }
+
+    public List<Model> getAll() {
+        return new ArrayList<Model>(modelList);
     }
 
     public static class ViewHolder extends BaseViewHolder {
