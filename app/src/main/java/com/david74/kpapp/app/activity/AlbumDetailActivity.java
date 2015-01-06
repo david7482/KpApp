@@ -7,10 +7,8 @@ import com.david74.kpapp.app.fragment.KpAlbumDetailFragment;
 
 public class AlbumDetailActivity extends BaseActivity {
 
-    public static String KEY_ID = "id";
-    public static String KEY_TITLE = "title";
-    public static String KEY_IMAGE_URL = "imageUrl";
-    public static String KEY_ALBUM_BUNDLE = "albumBundle";
+    public static String KEY_PARCELABLE = "parcelable";
+    public static String KEY_BUNDLE = "bundle";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +18,7 @@ public class AlbumDetailActivity extends BaseActivity {
     }
 
     private void addAlbumDetailFragment() {
-        KpAlbumDetailFragment fragment = KpAlbumDetailFragment.newInstance(getIntent().getBundleExtra(KEY_ALBUM_BUNDLE));
+        KpAlbumDetailFragment fragment = KpAlbumDetailFragment.newInstance(getIntent().getBundleExtra(KEY_BUNDLE));
         getFragmentManager()
                 .beginTransaction()
                 .add(android.R.id.content, fragment)

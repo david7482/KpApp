@@ -2,12 +2,15 @@ package com.david74.kpapp.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.model.KpAlbumModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.parceler.Parcels;
 
 import de.greenrobot.event.EventBus;
 
@@ -55,14 +58,12 @@ public class MainEntryActivity extends BaseActivity {
 
     public void onEventMainThread(KpAlbumModel albumModel) {
 
-        // TODO: We might need to figure out other way to pass album model
         Bundle bundle = new Bundle();
-        bundle.putString(AlbumDetailActivity.KEY_ID, albumModel.getId());
-        bundle.putString(AlbumDetailActivity.KEY_TITLE, albumModel.getTitle());
-        bundle.putString(AlbumDetailActivity.KEY_IMAGE_URL, albumModel.getImageUrl());
+        Parcelable parcelable = Parcels.wrap(albumModel);
+        bundle.putParcelable(AlbumDetailActivity.KEY_PARCELABLE, parcelable);
 
         Intent intent = new Intent(this, AlbumDetailActivity.class);
-        intent.putExtra(AlbumDetailActivity.KEY_ALBUM_BUNDLE, bundle);
+        intent.putExtra(AlbumDetailActivity.KEY_BUNDLE, bundle);
 
         startActivity(intent);
     }

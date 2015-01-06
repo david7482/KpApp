@@ -1,8 +1,8 @@
 package com.david74.kpapp.app.fragment;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,10 +17,13 @@ import com.david74.kpapp.app.activity.AlbumDetailActivity;
 import com.david74.kpapp.app.adapter.KpPhotoAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
 import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
+import com.david74.kpapp.app.model.KpAlbumModel;
 import com.david74.kpapp.app.model.Model;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenter;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenterImp;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
     private KpPhotoAdapter kpPhotoAdapter;
     private GridLayoutManager gridLayoutManager;
     private KpAlbumDetailPresenter kpAlbumDetailPresenter;
+    private KpAlbumModel albumModel;
 
     public static KpAlbumDetailFragment newInstance(Bundle bundle) {
         KpAlbumDetailFragment fragment = new KpAlbumDetailFragment();
@@ -58,9 +62,14 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Get album model from parcelable
+        Bundle bundle = getArguments();
+        Parcelable parcelable = bundle.getParcelable(AlbumDetailActivity.KEY_PARCELABLE);
+        albumModel = Parcels.unwrap(parcelable);
+
         kpPhotoAdapter = new KpPhotoAdapter();
         gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-        kpAlbumDetailPresenter = new KpAlbumDetailPresenterImp(getArguments().getString(AlbumDetailActivity.KEY_ID));
+        kpAlbumDetailPresenter = new KpAlbumDetailPresenterImp(albumModel.getId());
     }
 
     @Nullable
@@ -73,11 +82,8 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Bundle bundle = getArguments();
-        {
-            albumTitle.setText(bundle.getString(AlbumDetailActivity.KEY_TITLE));
-            ImageLoader.getInstance().displayImage(bundle.getString(AlbumDetailActivity.KEY_IMAGE_URL), albumImage);
-        }
+        albumTitle.setText(albumModel.getTitle());
+        ImageLoader.getInstance().displayImage(albumModel.getImageUrl(), albumImage);
 
         photosRecycleView.setAdapter(kpPhotoAdapter);
         photosRecycleView.setLayoutManager(gridLayoutManager);
