@@ -1,4 +1,4 @@
-package com.david74.kpapp.util.view;
+package com.david74.kpapp.util.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;
