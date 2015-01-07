@@ -8,9 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.activity.AlbumDetailActivity;
@@ -23,7 +21,6 @@ import com.david74.kpapp.app.model.Model;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenter;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenterImp;
 import com.david74.kpapp.util.appcontext.AppContext;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.parceler.Parcels;
 
@@ -31,25 +28,19 @@ import java.util.List;
 
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetailControl {
-
-    @InjectView(R.id.album_cover_image)
-    ImageView albumImage;
-
-    @InjectView(R.id.album_cover_title)
-    TextView albumTitle;
 
     @InjectView(R.id.recycler_view_photos)
     ClickRecyclerView photosRecycleView;
 
     @InjectView(R.id.loading_progress)
-    ProgressBar progressBar;
+    CircularProgressBar progressBar;
 
     private KpPhotoAdapter kpPhotoAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private KpAlbumDetailPresenter kpAlbumDetailPresenter;
-    private KpAlbumModel albumModel;
 
     public static KpAlbumDetailFragment newInstance(Bundle bundle) {
         KpAlbumDetailFragment fragment = new KpAlbumDetailFragment();
@@ -68,7 +59,7 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
         // Get album model from parcelable
         Bundle bundle = getArguments();
         Parcelable parcelable = bundle.getParcelable(AlbumDetailActivity.KEY_PARCELABLE);
-        albumModel = Parcels.unwrap(parcelable);
+        KpAlbumModel albumModel = Parcels.unwrap(parcelable);
 
         kpPhotoAdapter = new KpPhotoAdapter();
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -84,9 +75,6 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        albumTitle.setText(albumModel.getTitle());
-        ImageLoader.getInstance().displayImage(albumModel.getImageUrl(), albumImage);
 
         photosRecycleView.setAdapter(kpPhotoAdapter);
         photosRecycleView.setLayoutManager(layoutManager);

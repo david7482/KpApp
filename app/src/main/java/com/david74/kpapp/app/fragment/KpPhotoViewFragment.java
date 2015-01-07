@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.david74.kpapp.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -16,6 +15,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import butterknife.InjectView;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 public class KpPhotoViewFragment extends BaseFragment {
 
@@ -25,7 +25,7 @@ public class KpPhotoViewFragment extends BaseFragment {
     ImageView photo;
 
     @InjectView(R.id.loading_progress)
-    ProgressBar progressBar;
+    CircularProgressBar progressBar;
 
     public static Fragment newInstance(String photoUrl) {
 

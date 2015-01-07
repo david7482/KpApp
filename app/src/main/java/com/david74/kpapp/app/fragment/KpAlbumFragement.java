@@ -24,11 +24,12 @@ import java.util.List;
 
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 public class KpAlbumFragement extends BaseFragment implements KpAlbumControl {
 
     @InjectView(R.id.loading_progress)
-    ProgressBar progressBar;
+    CircularProgressBar progressBar;
 
     @InjectView(R.id.recycler_view_albums)
     ClickRecyclerView albumsRecyclerView;
