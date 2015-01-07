@@ -19,6 +19,7 @@
     <item name="model_card_footer_background" type="color">#58000000</item>
     <item name="model_card_footer_text" type="color">#FFF</item>
 
+    <color name="parallax_view_pager_background">#FF000000</color>
     <color name="blue_circle">@color/material_blue_500</color>
     <color name="green_circle">@color/material_green_500</color>
     <color name="yellow_circle">@color/material_yellow_500</color>

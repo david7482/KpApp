@@ -3,8 +3,8 @@ package com.david74.kpapp.app.fragment;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,6 @@ import com.david74.kpapp.app.adapter.KpPhotoAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
 import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
 import com.david74.kpapp.app.model.KpAlbumModel;
-import com.david74.kpapp.app.model.KpPhotoModel;
 import com.david74.kpapp.app.model.KpPhotosModel;
 import com.david74.kpapp.app.model.Model;
 import com.david74.kpapp.app.presenter.KpAlbumDetailPresenter;
@@ -48,7 +47,7 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
     ProgressBar progressBar;
 
     private KpPhotoAdapter kpPhotoAdapter;
-    private GridLayoutManager gridLayoutManager;
+    private RecyclerView.LayoutManager layoutManager;
     private KpAlbumDetailPresenter kpAlbumDetailPresenter;
     private KpAlbumModel albumModel;
 
@@ -72,7 +71,7 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
         albumModel = Parcels.unwrap(parcelable);
 
         kpPhotoAdapter = new KpPhotoAdapter();
-        gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         kpAlbumDetailPresenter = new KpAlbumDetailPresenterImp(albumModel.getId());
     }
 
@@ -90,7 +89,7 @@ public class KpAlbumDetailFragment extends BaseFragment implements KpAlbumDetail
         ImageLoader.getInstance().displayImage(albumModel.getImageUrl(), albumImage);
 
         photosRecycleView.setAdapter(kpPhotoAdapter);
-        photosRecycleView.setLayoutManager(gridLayoutManager);
+        photosRecycleView.setLayoutManager(layoutManager);
         photosRecycleView.setItemAnimator(new SlideInLeftItemAnimator());
         photosRecycleView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
