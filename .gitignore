@@ -121,6 +121,7 @@ proguard/
 *.log
 
 local/
+.gitignore
 
 # Eclipse project files
 .classpath
