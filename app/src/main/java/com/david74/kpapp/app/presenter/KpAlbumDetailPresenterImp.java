@@ -3,7 +3,7 @@ package com.david74.kpapp.app.presenter;
 import com.david74.kpapp.api.KpApiCaller;
 import com.david74.kpapp.api.model.KpPhotoInfo;
 import com.david74.kpapp.api.model.KpPhotoInfoWrapper;
-import com.david74.kpapp.app.fragment.KpAlbumDetailControl;
+import com.david74.kpapp.app.control.KpAlbumDetailControl;
 import com.david74.kpapp.app.model.KpPhotoModel;
 
 import java.util.List;

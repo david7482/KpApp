@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.adapter.KpPhotoViewAdapter;
 import com.david74.kpapp.app.model.KpPhotosModel;
-import com.david74.kpapp.util.tool.Tool;
+import com.david74.kpapp.util.screen.Screen;
 import com.david74.kpapp.util.transformer.ParallaxPagerTransformer;
 
 import org.parceler.Parcels;
@@ -50,7 +50,7 @@ public class PhotoViewerActivity extends BaseActivity {
         photoViewAdapter.add(photosModel.getPhotoUrlList());
 
         viewPager.setBackgroundColor(getResources().getColor(R.color.parallax_view_pager_background));
-        viewPager.setPageMargin(Tool.convertDpToPixel(this, 8));
+        viewPager.setPageMargin(Screen.convertDpToPixel(this, 8));
         viewPager.setPageTransformer(false, pt);
         viewPager.setAdapter(photoViewAdapter);
         viewPager.setCurrentItem(photosModel.getSelectedPosition());

@@ -1,26 +1,84 @@
 package com.david74.kpapp.app.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.david74.kpapp.R;
+import com.david74.kpapp.app.adapter.KpAlbumAdapter;
+import com.david74.kpapp.app.custom.ClickRecyclerView;
+import com.david74.kpapp.app.control.KpAlbumControl;
+import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
 import com.david74.kpapp.app.model.KpAlbumModel;
+import com.david74.kpapp.app.model.Model;
+import com.david74.kpapp.app.presenter.KpAlbumListPresenter;
+import com.david74.kpapp.app.presenter.KpAlbumListPresenterImp;
+import com.david74.kpapp.util.appcontext.AppContext;
+import com.david74.kpapp.util.screen.Screen;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.parceler.Parcels;
 
+import java.util.List;
+
+import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
 
-public class MainEntryActivity extends BaseActivity {
+public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
+
+    @InjectView(R.id.loading_progress)
+    CircularProgressBar progressBar;
+
+    @InjectView(R.id.recycler_view_albums)
+    ClickRecyclerView albumsRecyclerView;
+
+    private KpAlbumAdapter kpAlbumAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_entry);
+        super.onCreate(savedInstanceState);
+
+        kpAlbumAdapter = new KpAlbumAdapter();
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        {
+            int orientation = Screen.getScreenOrientation(this);
+            if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE ||
+                orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
+                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            } else {
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            }
+        }
+
+        albumsRecyclerView.setLayoutManager(layoutManager);
+        albumsRecyclerView.setItemAnimator(new SlideInLeftItemAnimator());
+        albumsRecyclerView.setAdapter(kpAlbumAdapter);
+        albumsRecyclerView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView parent, View view, final int position, long id) {
+                AppContext.runOnMainUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        KpAlbumModel albumModel = (KpAlbumModel) kpAlbumAdapter.get(position);
+                        EventBus.getDefault().post(albumModel);
+                    }
+                }, getResources().getInteger(R.integer.ripple_duration));
+            }
+        });
+
+        KpAlbumListPresenter kpAlbumListPresenter = new KpAlbumListPresenterImp();
+        kpAlbumListPresenter.setView(this);
+        kpAlbumListPresenter.initialize();
     }
 
     @Override
@@ -56,14 +114,31 @@ public class MainEntryActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void add(Model model) {
+        kpAlbumAdapter.add(model);
+    }
+
+    @Override
+    public void add(List<Model> modelList) {
+        kpAlbumAdapter.add(modelList);
+    }
+
     public void onEventMainThread(KpAlbumModel albumModel) {
 
-        Bundle bundle = new Bundle();
         Parcelable parcelable = Parcels.wrap(albumModel);
-        bundle.putParcelable(AlbumDetailActivity.KEY_PARCELABLE, parcelable);
-
         Intent intent = new Intent(this, AlbumDetailActivity.class);
-        intent.putExtra(AlbumDetailActivity.KEY_BUNDLE, bundle);
+        intent.putExtra(AlbumDetailActivity.KEY_PARCELABLE, parcelable);
 
         startActivity(intent);
     }

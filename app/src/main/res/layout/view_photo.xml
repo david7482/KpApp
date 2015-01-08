@@ -14,7 +14,7 @@
         ripple:rv_rippleDuration="@integer/ripple_duration"
         ripple:rv_framerate="@integer/ripple_framerate">
 
-        <com.david74.kpapp.util.customview.DynamicHeightImageView
+        <com.david74.kpapp.util.customview.DynamicImageView
             android:id="@+id/model_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

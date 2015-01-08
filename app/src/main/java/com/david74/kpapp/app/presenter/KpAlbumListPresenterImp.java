@@ -2,7 +2,7 @@ package com.david74.kpapp.app.presenter;
 
 import com.david74.kpapp.api.KpApiCaller;
 import com.david74.kpapp.api.model.KpAlbumInfoWrapper;
-import com.david74.kpapp.app.fragment.KpAlbumControl;
+import com.david74.kpapp.app.control.KpAlbumControl;
 import com.david74.kpapp.app.model.KpAlbumModel;
 import com.david74.kpapp.app.model.Model;
 

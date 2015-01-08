@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.model.Model;
 import com.david74.kpapp.app.viewholder.BaseViewHolder;
-import com.david74.kpapp.util.customview.DynamicHeightImageView;
+import com.david74.kpapp.util.customview.DynamicImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         Model photoModel = modelList.get(position);
 
-        holder.modelView.setHeightRatio(getPositionRatio(position));
+        holder.modelView.setDynamicRatio(getPositionRatio(position));
 
         ImageLoader.getInstance().displayImage(photoModel.getImageUrl(), holder.modelView);
     }
@@ -79,7 +79,7 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
     public static class ViewHolder extends BaseViewHolder {
 
         @InjectView(R.id.model_image)
-        DynamicHeightImageView modelView;
+        DynamicImageView modelView;
 
         public ViewHolder(View itemView) {
             super(itemView);

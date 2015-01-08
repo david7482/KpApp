@@ -1,4 +1,4 @@
-package com.david74.kpapp.app.fragment;
+package com.david74.kpapp.app.control;
 
 import com.david74.kpapp.app.model.Model;
 

@@ -2,4 +2,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:id="@+id/loading_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+    <com.david74.kpapp.app.custom.ClickRecyclerView
+        android:id="@+id/recycler_view_photos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </RelativeLayout>
