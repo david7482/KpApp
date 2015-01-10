@@ -1,6 +1,6 @@
-package com.david74.kpapp.api.model;
+package com.david74.kpapp.api2.model;
 
-public class KpAlbumInfo {
+public class AlbumInfo {
     String id;
     int photos;
     int videos;

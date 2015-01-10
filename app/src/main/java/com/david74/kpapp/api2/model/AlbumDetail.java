@@ -1,11 +1,16 @@
-package com.david74.kpapp.api.model;
+package com.david74.kpapp.api2.model;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class KpPhotoInfo {
+public class AlbumDetail {
 
     Set set;
-    List<Photo> photos;
+    int totalResults;
+
+    @SerializedName("items")
+    List<Photo> photoList;
 
     public Set getSet() {
         return set;
@@ -15,12 +20,20 @@ public class KpPhotoInfo {
         this.set = set;
     }
 
-    public List<Photo> getPhotos() {
-        return photos;
+    public int getTotalResults() {
+        return totalResults;
     }
 
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
+    public void setTotalResults(int totalResults) {
+        this.totalResults = totalResults;
+    }
+
+    public List<Photo> getPhotos() {
+        return photoList;
+    }
+
+    public void setPhotos(List<Photo> photoList) {
+        this.photoList = photoList;
     }
 
     public static class Set {

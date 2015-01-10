@@ -1,12 +1,13 @@
 package com.david74.kpapp.app.presenter;
 
-import com.david74.kpapp.api.KpApiCaller;
-import com.david74.kpapp.api.model.KpPhotoInfo;
-import com.david74.kpapp.api.model.KpPhotoInfoWrapper;
+import com.david74.kpapp.api2.KpApiCaller;
+import com.david74.kpapp.api2.model.AlbumDetail;
+import com.david74.kpapp.api2.model.AlbumsInfo;
+import com.david74.kpapp.api2.model.FlickrAlbums;
 import com.david74.kpapp.app.control.KpAlbumDetailControl;
 import com.david74.kpapp.app.model.KpPhotoModel;
 
-import java.util.List;
+import java.util.HashMap;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -26,14 +27,12 @@ public class KpAlbumDetailPresenterImp implements KpAlbumDetailPresenter {
 
         control.showLoading();
 
-        KpApiCaller.getApiCaller().getAlbumDetailAsync(albumId, new Callback<KpPhotoInfoWrapper>() {
+        KpApiCaller.getApiCaller().getKpAlbums(new Callback<AlbumsInfo>() {
             @Override
-            public void success(KpPhotoInfoWrapper kpPhotoInfoWrapper, Response response) {
-                if (kpPhotoInfoWrapper.isSuccess()) {
-                    List<KpPhotoInfo.Photo> list = kpPhotoInfoWrapper.getData().getPhotos();
-                    control.add(KpPhotoModel.ConvertToModelList(list));
-                }
-
+            public void success(AlbumsInfo albumsInfo, Response response) {
+                HashMap<String, AlbumDetail> map = albumsInfo.getFlickralbums().getAlbumDetails();
+                AlbumDetail albumDetail = map.get(albumId);
+                control.add(KpPhotoModel.ConvertToModelList(albumDetail.getPhotos()));
                 control.hideLoading();
             }
 

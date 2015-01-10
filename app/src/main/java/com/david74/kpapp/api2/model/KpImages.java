@@ -1,4 +1,4 @@
-package com.david74.kpapp.api.model;
+package com.david74.kpapp.api2.model;
 
 public class KpImages {
     String small;

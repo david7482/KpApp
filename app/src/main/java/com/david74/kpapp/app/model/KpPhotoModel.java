@@ -1,6 +1,7 @@
 package com.david74.kpapp.app.model;
 
-import com.david74.kpapp.api.model.KpPhotoInfo;
+
+import com.david74.kpapp.api2.model.AlbumDetail;
 
 import org.parceler.Parcel;
 
@@ -20,7 +21,7 @@ public class KpPhotoModel implements Model {
 
     }
 
-    public KpPhotoModel(KpPhotoInfo.Photo photo) {
+    public KpPhotoModel(AlbumDetail.Photo photo) {
         imageUrl = photo.getImages().getSmall();
         imageUrlHighResolution = photo.getImages().getLarge();
         title = photo.getTitle();
@@ -85,9 +86,9 @@ public class KpPhotoModel implements Model {
         this.imageUrlHighResolution = imageUrlHighResolution;
     }
 
-    public static List<Model> ConvertToModelList(List<KpPhotoInfo.Photo> photoList) {
+    public static List<Model> ConvertToModelList(List<AlbumDetail.Photo> photoList) {
         List<Model> list = new ArrayList<Model>();
-        for (KpPhotoInfo.Photo photo : photoList) {
+        for (AlbumDetail.Photo photo : photoList) {
             list.add(new KpPhotoModel(photo));
         }
         return list;

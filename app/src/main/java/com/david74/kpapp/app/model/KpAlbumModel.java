@@ -1,6 +1,6 @@
 package com.david74.kpapp.app.model;
 
-import com.david74.kpapp.api.model.KpAlbumInfo;
+import com.david74.kpapp.api2.model.AlbumInfo;
 
 import org.parceler.Parcel;
 
@@ -20,7 +20,7 @@ public class KpAlbumModel implements Model {
 
     }
 
-    public KpAlbumModel(KpAlbumInfo albumInfo) {
+    public KpAlbumModel(AlbumInfo albumInfo) {
         imageUrl = albumInfo.getThumbnails().getSmall();
         imageUrlHighResolution = albumInfo.getThumbnails().getLarge();
         title = albumInfo.getTitle();
@@ -85,9 +85,9 @@ public class KpAlbumModel implements Model {
         this.imageUrlHighResolution = imageUrlHighResolution;
     }
 
-    public static List<Model> ConvertToModelList(List<KpAlbumInfo> albumInfoList) {
+    public static List<Model> ConvertToModelList(List<AlbumInfo> albumInfoList) {
         List<Model> list = new ArrayList<Model>();
-        for (KpAlbumInfo albumInfo : albumInfoList) {
+        for (AlbumInfo albumInfo : albumInfoList) {
             list.add(new KpAlbumModel(albumInfo));
         }
         return list;

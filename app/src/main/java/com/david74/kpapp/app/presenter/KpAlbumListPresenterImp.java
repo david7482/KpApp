@@ -1,7 +1,7 @@
 package com.david74.kpapp.app.presenter;
 
-import com.david74.kpapp.api.KpApiCaller;
-import com.david74.kpapp.api.model.KpAlbumInfoWrapper;
+import com.david74.kpapp.api2.KpApiCaller;
+import com.david74.kpapp.api2.model.AlbumsInfo;
 import com.david74.kpapp.app.control.KpAlbumControl;
 import com.david74.kpapp.app.model.KpAlbumModel;
 import com.david74.kpapp.app.model.Model;
@@ -20,15 +20,12 @@ public class KpAlbumListPresenterImp implements KpAlbumListPresenter {
     public void initialize() {
         control.showLoading();
 
-        KpApiCaller.getApiCaller().getAlbumListAsync(new Callback<KpAlbumInfoWrapper>() {
+        KpApiCaller.getApiCaller().getKpAlbums(new Callback<AlbumsInfo>() {
             @Override
-            public void success(KpAlbumInfoWrapper kpAlbumInfoWrapper, Response response) {
+            public void success(AlbumsInfo albumsInfo, Response response) {
                 control.hideLoading();
-
-                if (kpAlbumInfoWrapper.isSuccess()) {
-                    List<Model> list = KpAlbumModel.ConvertToModelList(kpAlbumInfoWrapper.getData());
-                    control.add(list);
-                }
+                List<Model> list = KpAlbumModel.ConvertToModelList(albumsInfo.getFlickralbums().getAlbumInfos().getAlbumInfoList());
+                control.add(list);
             }
 
             @Override
