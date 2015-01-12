@@ -1,94 +1,98 @@
 package com.david74.kpapp.util.logger;
 
-public class L
-{
+public class Logger {
+
     public static enum Mode
     {
         AppName,
         AppNameWithClass,
         AppNameWithMethod
-    };
+    }
 
     private static Mode mode = Mode.AppNameWithClass;
     private static boolean enabled = true;
-    private static String appName = "kpapp";
+    private static String appName = "KpApp";
 
-    public static void setEnable(boolean _enabled)
+    public static void setEnable(boolean enabled)
     {
-        enabled = _enabled;
+        Logger.enabled = enabled;
     }
 
-    public static void setMode(Mode _mode)
+    public static void setMode(Mode mode)
     {
-        mode = _mode;
+        Logger.mode = mode;
     }
 
-    public static void setAppName(String _appName)
+    public static void setAppName(String appName)
     {
-        appName = _appName;
+        Logger.appName = appName;
     }
 
-    public static void i(String message)
-    {
-        if (enabled)
-            android.util.Log.i(getTag(), message);
-    }
-
-    public static void i(String message, Throwable e)
+    public static void i(String message, Object... args)
     {
         if (enabled)
-            android.util.Log.i(getTag(), message, e);
+            android.util.Log.i(getTag(), getMessage(message, args));
     }
 
-    public static void e(String message)
+    public static void i(Throwable e, String message, Object... args)
     {
         if (enabled)
-            android.util.Log.e(getTag(), message);
+            android.util.Log.i(getTag(), getMessage(message, args), e);
     }
 
-    public static void e(String message, Throwable e)
+    public static void e(String message, Object... args)
     {
         if (enabled)
-            android.util.Log.e(getTag(), message, e);
+            android.util.Log.e(getTag(), getMessage(message, args));
     }
 
-    public static void d(String message)
+    public static void e(Throwable e, String message, Object... args)
     {
         if (enabled)
-            android.util.Log.d(getTag(), message);
+            android.util.Log.e(getTag(), getMessage(message, args), e);
     }
 
-    public static void d(String message, Throwable e)
+    public static void d(String message, Object... args)
     {
         if (enabled)
-            android.util.Log.d(getTag(), message, e);
+            android.util.Log.d(getTag(), getMessage(message, args));
     }
 
-    public static void v(String message)
+    public static void d(Throwable e, String message, Object... args)
     {
         if (enabled)
-            android.util.Log.v(getTag(), message);
+            android.util.Log.d(getTag(), getMessage(message, args), e);
     }
 
-    public static void v(String message, Throwable e)
+    public static void v(String message, Object... args)
     {
         if (enabled)
-            android.util.Log.v(getTag(), message, e);
+            android.util.Log.v(getTag(), getMessage(message, args));
     }
 
-    public static void w(String message)
+    public static void v(Throwable e, String message, Object... args)
     {
         if (enabled)
-            android.util.Log.w(getTag(), message);
+            android.util.Log.v(getTag(), getMessage(message, args), e);
     }
 
-    public static void w(String message, Throwable e)
+    public static void w(String message, Object... args)
     {
         if (enabled)
-            android.util.Log.w(getTag(), message, e);
+            android.util.Log.w(getTag(), getMessage(message, args));
     }
 
-    @SuppressWarnings("incomplete-switch")
+    public static void w(Throwable e, String message, Object... args)
+    {
+        if (enabled)
+            android.util.Log.w(getTag(), getMessage(message, args), e);
+    }
+
+    private static String getMessage(String message, Object... args) {
+        // If no varargs are supplied, treat it as a request to log the string without formatting.
+        return args.length == 0 ? message : String.format(message, args);
+    }
+
     private static String getTag()
     {
         StackTraceElement[] st = null;
@@ -125,14 +129,14 @@ public class L
             String name = e.getClassName();
             if (!findSelf)
             {
-                if (name.equals(L.class.getName()))
+                if (name.equals(Logger.class.getName()))
                 {
                     findSelf = true;
                 }
             }
             else
             {
-                if (!name.equals(L.class.getName()))
+                if (!name.equals(Logger.class.getName()))
                 {
                     String[] s = name.split("\\.");
                     info[0] = s[s.length - 1];
