@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.david74.kpapp.R;
+import com.david74.kpapp.app.KpApplication;
 import com.david74.kpapp.app.adapter.KpAlbumAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
 import com.david74.kpapp.app.control.KpAlbumControl;
@@ -21,6 +22,8 @@ import com.david74.kpapp.app.presenter.KpAlbumListPresenter;
 import com.david74.kpapp.app.presenter.KpAlbumListPresenterImp;
 import com.david74.kpapp.util.appcontext.AppContext;
 import com.david74.kpapp.util.screen.Screen;
+
+import com.google.android.gms.analytics.HitBuilders;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.parceler.Parcels;
@@ -139,6 +142,9 @@ public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
         Parcelable parcelable = Parcels.wrap(albumModel);
         Intent intent = new Intent(this, AlbumDetailActivity.class);
         intent.putExtra(AlbumDetailActivity.KEY_PARCELABLE, parcelable);
+
+        ((KpApplication)AppContext.get()).getTracker().send(
+                new HitBuilders.EventBuilder().setCategory("OpenAlbum").setAction(albumModel.getTitle()).build());
 
         startActivity(intent);
     }
