@@ -1,15 +1,13 @@
 package com.david74.kpapp.app.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 
-import com.david74.kpapp.app.KpApplication;
-import com.david74.kpapp.util.appcontext.AppContext;
 import com.google.android.gms.analytics.GoogleAnalytics;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends FragmentActivity
+public abstract class BaseActivity extends ActionBarActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

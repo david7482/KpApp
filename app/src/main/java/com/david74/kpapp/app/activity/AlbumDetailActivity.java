@@ -4,15 +4,16 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.adapter.KpPhotoAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
 import com.david74.kpapp.app.control.KpAlbumDetailControl;
+import com.david74.kpapp.app.custom.SpacesItemDecoration;
 import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
 import com.david74.kpapp.app.model.KpAlbumModel;
 import com.david74.kpapp.app.model.KpPhotosModel;
@@ -40,12 +41,17 @@ public class AlbumDetailActivity extends BaseActivity implements KpAlbumDetailCo
     @InjectView(R.id.loading_progress)
     CircularProgressBar progressBar;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
     private KpPhotoAdapter kpPhotoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_album_detail);
         super.onCreate(savedInstanceState);
+
+        setSupportActionBar(toolbar);
 
         // Get album model from parcelable
         Intent intent = getIntent();
@@ -68,6 +74,7 @@ public class AlbumDetailActivity extends BaseActivity implements KpAlbumDetailCo
         photosRecycleView.setAdapter(kpPhotoAdapter);
         photosRecycleView.setLayoutManager(layoutManager);
         photosRecycleView.setItemAnimator(new SlideInLeftItemAnimator());
+        photosRecycleView.addItemDecoration(new SpacesItemDecoration(this, 6));
         photosRecycleView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, final int position, long id) {

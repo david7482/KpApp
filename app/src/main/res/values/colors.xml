@@ -3,18 +3,19 @@
     <!--Application palette-->
     <item name="material_blue_500" type="color">#2196F3</item>
     <item name="material_blue_800" type="color">#1565C0</item>
+    <item name="material_green_500" type="color">#009688</item>
+    <item name="material_green_800" type="color">#00695C</item>
     <item name="material_pink_A400" type="color">#F50057</item>
     <item name="material_yellow_A200" type="color">#FFFF00</item>
 
     <!--Other colors-->
-    <item name="material_green_500" type="color">#4CAF50</item>
     <item name="material_lime_A100" type="color">#F4FF81</item>
     <item name="material_yellow_500" type="color">#FFEB3B</item>
 
 
     <!--Component colors-->
-    <item name="primary" type="color">@color/material_blue_500</item>
-    <item name="primaryDark" type="color">@color/material_blue_800</item>
+    <item name="primary" type="color">@color/material_green_500</item>
+    <item name="primaryDark" type="color">@color/material_green_800</item>
 
     <item name="model_card_footer_background" type="color">#58000000</item>
     <item name="model_card_footer_text" type="color">#FFF</item>

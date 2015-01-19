@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.david74.kpapp.app.KpApplication;
 import com.david74.kpapp.app.adapter.KpAlbumAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
 import com.david74.kpapp.app.control.KpAlbumControl;
+import com.david74.kpapp.app.custom.SpacesItemDecoration;
 import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
 import com.david74.kpapp.app.model.KpAlbumModel;
 import com.david74.kpapp.app.model.Model;
@@ -43,12 +45,17 @@ public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
     @InjectView(R.id.recycler_view_albums)
     ClickRecyclerView albumsRecyclerView;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
     private KpAlbumAdapter kpAlbumAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main_entry);
         super.onCreate(savedInstanceState);
+
+        setSupportActionBar(toolbar);
 
         kpAlbumAdapter = new KpAlbumAdapter();
 
@@ -65,6 +72,7 @@ public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
 
         albumsRecyclerView.setLayoutManager(layoutManager);
         albumsRecyclerView.setItemAnimator(new SlideInLeftItemAnimator());
+        albumsRecyclerView.addItemDecoration(new SpacesItemDecoration(this, 6));
         albumsRecyclerView.setAdapter(kpAlbumAdapter);
         albumsRecyclerView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override

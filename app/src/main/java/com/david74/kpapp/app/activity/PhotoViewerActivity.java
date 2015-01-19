@@ -1,6 +1,5 @@
 package com.david74.kpapp.app.activity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
@@ -31,12 +30,6 @@ public class PhotoViewerActivity extends BaseActivity {
         setContentView(R.layout.activity_photo_viewer);
         super.onCreate(savedInstanceState);
 
-        // Hide action bar
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-
         // Get photos model from parcelable
         Bundle bundle = getIntent().getBundleExtra(KEY_BUNDLE);
         Parcelable parcelable = bundle.getParcelable(KEY_PARCELABLE);
@@ -49,7 +42,6 @@ public class PhotoViewerActivity extends BaseActivity {
         photoViewAdapter = new KpPhotoViewAdapter(this, getSupportFragmentManager());
         photoViewAdapter.add(photosModel.getPhotoUrlList());
 
-        viewPager.setBackgroundColor(getResources().getColor(R.color.parallax_view_pager_background));
         viewPager.setPageMargin(Screen.convertDpToPixel(this, 8));
         viewPager.setPageTransformer(false, pt);
         viewPager.setAdapter(photoViewAdapter);

@@ -4,8 +4,7 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="4dp"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="6dp">
 
     <com.andexert.library.RippleView
         xmlns:ripple="http://schemas.android.com/apk/res-auto"
