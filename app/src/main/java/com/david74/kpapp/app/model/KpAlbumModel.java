@@ -1,6 +1,7 @@
 package com.david74.kpapp.app.model;
 
 import com.david74.kpapp.api2.model.AlbumInfo;
+import com.david74.kpapp.db.KpAlbumRecord;
 
 import org.parceler.Parcel;
 
@@ -28,12 +29,30 @@ public class KpAlbumModel implements Model {
         id = albumInfo.getId();
     }
 
+    public KpAlbumModel(KpAlbumRecord record) {
+        imageUrl = record.imageUrl;
+        imageUrlHighResolution = record.imageUrlHighResolution;
+        title = record.title;
+        descripion = record.descripion;
+        id = record.albumId;
+    }
+
     public KpAlbumModel(String imageUrl, String imageUrlHighResolution, String title, String descripion, String id) {
         this.imageUrl = imageUrl;
         this.imageUrlHighResolution = imageUrlHighResolution;
         this.title = title;
         this.descripion = descripion;
         this.id = id;
+    }
+
+    public void saveToDB() {
+        KpAlbumRecord record = new KpAlbumRecord();
+        record.albumId = id;
+        record.descripion = descripion;
+        record.imageUrl = imageUrl;
+        record.imageUrlHighResolution = imageUrlHighResolution;
+        record.title = title;
+        record.save();
     }
 
     @Override
@@ -89,6 +108,14 @@ public class KpAlbumModel implements Model {
         List<Model> list = new ArrayList<Model>();
         for (AlbumInfo albumInfo : albumInfoList) {
             list.add(new KpAlbumModel(albumInfo));
+        }
+        return list;
+    }
+
+    public static List<Model> ConvertRecordToModelList(List<KpAlbumRecord> recordList) {
+        List<Model> list = new ArrayList<Model>();
+        for (KpAlbumRecord record : recordList) {
+            list.add(new KpAlbumModel(record));
         }
         return list;
     }

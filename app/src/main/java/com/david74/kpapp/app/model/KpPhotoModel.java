@@ -2,6 +2,8 @@ package com.david74.kpapp.app.model;
 
 
 import com.david74.kpapp.api2.model.AlbumDetail;
+import com.david74.kpapp.db.KpAlbumRecord;
+import com.david74.kpapp.db.KpPhotoRecord;
 
 import org.parceler.Parcel;
 
@@ -29,12 +31,30 @@ public class KpPhotoModel implements Model {
         id = photo.getId();
     }
 
+    public KpPhotoModel(KpPhotoRecord record) {
+        imageUrl = record.imageUrl;
+        imageUrlHighResolution = record.imageUrlHighResolution;
+        title = record.title;
+        descripion = record.descripion;
+        id = record.albumId;
+    }
+
     public KpPhotoModel(String imageUrl, String imageUrlHighResolution, String title, String descripion, String id) {
         this.imageUrl = imageUrl;
         this.imageUrlHighResolution = imageUrlHighResolution;
         this.title = title;
         this.descripion = descripion;
         this.id = id;
+    }
+
+    public void saveToDB(String albumId) {
+        KpPhotoRecord record = new KpPhotoRecord();
+        record.albumId = albumId;
+        record.descripion = descripion;
+        record.imageUrl = imageUrl;
+        record.imageUrlHighResolution = imageUrlHighResolution;
+        record.title = title;
+        record.save();
     }
 
     @Override
@@ -90,6 +110,14 @@ public class KpPhotoModel implements Model {
         List<Model> list = new ArrayList<Model>();
         for (AlbumDetail.Photo photo : photoList) {
             list.add(new KpPhotoModel(photo));
+        }
+        return list;
+    }
+
+    public static List<Model> ConvertRecordToModelList(List<KpPhotoRecord> recordList) {
+        List<Model> list = new ArrayList<Model>();
+        for (KpPhotoRecord record : recordList) {
+            list.add(new KpPhotoModel(record));
         }
         return list;
     }

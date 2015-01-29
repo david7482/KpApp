@@ -55,4 +55,7 @@ dependencies {
 
     // For circle progress bar
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.0'
+
+    // For database ORM
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }
