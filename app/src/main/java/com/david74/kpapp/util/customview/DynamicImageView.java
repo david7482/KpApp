@@ -9,8 +9,9 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import com.david74.kpapp.util.screen.Screen;
+import com.makeramen.RoundedImageView;
 
-public class DynamicImageView extends ImageView {
+public class DynamicImageView extends RoundedImageView {
 
     private double mDynamicRatio = 0.0;
 

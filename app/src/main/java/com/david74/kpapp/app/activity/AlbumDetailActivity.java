@@ -74,7 +74,7 @@ public class AlbumDetailActivity extends BaseActivity implements KpAlbumDetailCo
         photosRecycleView.setAdapter(kpPhotoAdapter);
         photosRecycleView.setLayoutManager(layoutManager);
         photosRecycleView.setItemAnimator(new SlideInLeftItemAnimator());
-        photosRecycleView.addItemDecoration(new SpacesItemDecoration(this, 6));
+        photosRecycleView.addItemDecoration(new SpacesItemDecoration(this, 8));
         photosRecycleView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, final int position, long id) {

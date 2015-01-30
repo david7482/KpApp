@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    card_view:cardCornerRadius="6dp">
+    card_view:cardCornerRadius="4dp"
+    card_view:cardPreventCornerOverlap="false">
 
     <com.andexert.library.RippleView
         xmlns:ripple="http://schemas.android.com/apk/res-auto"
@@ -14,11 +15,13 @@
         ripple:rv_framerate="@integer/ripple_framerate">
 
         <com.david74.kpapp.util.customview.DynamicImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/model_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null"
+            app:riv_corner_radius="4dp"/>
 
     </com.andexert.library.RippleView>
 
