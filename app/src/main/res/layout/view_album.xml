@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_height="match_parent"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_model"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="180dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardPreventCornerOverlap="false">
 
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_model"
-        android:layout_gravity="center"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        card_view:cardCornerRadius="6dp">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <com.andexert.library.RippleView
+            xmlns:ripple="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            ripple:rv_rippleDuration="@integer/ripple_duration"
+            ripple:rv_framerate="@integer/ripple_framerate">
 
-            <com.andexert.library.RippleView
-                xmlns:ripple="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
+            <com.makeramen.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/model_image"
                 android:layout_height="match_parent"
-                ripple:rv_rippleDuration="@integer/ripple_duration"
-                ripple:rv_framerate="@integer/ripple_framerate">
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="@null"
+                app:riv_corner_radius="4dp"/>
 
-                <ImageView
-                    android:id="@+id/model_image"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:layout_width="match_parent"
-                    android:contentDescription="@null"/>
+            <RelativeLayout
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:background="@color/model_card_footer_background"
+                android:layout_height="50dp">
 
-                <RelativeLayout
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="match_parent"
-                    android:background="@color/model_card_footer_background"
-                    android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/model_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textSize="20sp"
+                    android:textColor="@color/model_card_footer_text"
+                    android:layout_centerVertical="true" />
 
-                    <TextView
-                        android:id="@+id/model_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:textSize="20sp"
-                        android:textColor="@color/model_card_footer_text"
-                        android:layout_centerVertical="true" />
-
-                </RelativeLayout>
-            </com.andexert.library.RippleView>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+            </RelativeLayout>
+        </com.andexert.library.RippleView>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
