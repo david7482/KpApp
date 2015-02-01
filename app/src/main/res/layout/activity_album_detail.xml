@@ -14,7 +14,9 @@
         android:id="@+id/recycler_view_photos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/toolbar"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"/>
 
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
         style="?android:progressBarStyleLarge"

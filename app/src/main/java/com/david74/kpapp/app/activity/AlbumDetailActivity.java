@@ -13,6 +13,7 @@ import com.david74.kpapp.R;
 import com.david74.kpapp.app.adapter.KpPhotoAdapter;
 import com.david74.kpapp.app.custom.ClickRecyclerView;
 import com.david74.kpapp.app.control.KpAlbumDetailControl;
+import com.david74.kpapp.app.custom.DividerItemDecoration;
 import com.david74.kpapp.app.custom.SpacesItemDecoration;
 import com.david74.kpapp.app.itemanimator.SlideInLeftItemAnimator;
 import com.david74.kpapp.app.model.KpAlbumModel;
@@ -74,7 +75,7 @@ public class AlbumDetailActivity extends BaseActivity implements KpAlbumDetailCo
         photosRecycleView.setAdapter(kpPhotoAdapter);
         photosRecycleView.setLayoutManager(layoutManager);
         photosRecycleView.setItemAnimator(new SlideInLeftItemAnimator());
-        photosRecycleView.addItemDecoration(new SpacesItemDecoration(this, 8));
+        photosRecycleView.addItemDecoration(new SpacesItemDecoration(this, 4));
         photosRecycleView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, final int position, long id) {

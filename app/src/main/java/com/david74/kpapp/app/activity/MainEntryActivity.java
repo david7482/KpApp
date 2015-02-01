@@ -60,20 +60,21 @@ public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
 
         kpAlbumAdapter = new KpAlbumAdapter();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        {
-            int orientation = Screen.getScreenOrientation(this);
-            if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE ||
-                orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
-                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            } else {
-                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            }
+        LinearLayoutManager layoutManager;
+        DividerItemDecoration decoration;
+        int orientation = Screen.getScreenOrientation(this);
+        if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE ||
+            orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            decoration = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL_LIST);
+        } else {
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
         }
 
         albumsRecyclerView.setLayoutManager(layoutManager);
         albumsRecyclerView.setItemAnimator(new SlideInLeftItemAnimator());
-        albumsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        albumsRecyclerView.addItemDecoration(decoration);
         albumsRecyclerView.setAdapter(kpAlbumAdapter);
         albumsRecyclerView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
