@@ -3,9 +3,14 @@ package com.david74.kpapp.util.screen;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Surface;
+import android.view.WindowManager;
+
+import com.david74.kpapp.util.appcontext.AppContext;
 
 public class Screen {
 
@@ -80,5 +85,15 @@ public class Screen {
         }
 
         return orientation;
+    }
+
+    public static Point getScreenSize() {
+
+        WindowManager wm = (WindowManager) AppContext.get().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        return size;
     }
 }

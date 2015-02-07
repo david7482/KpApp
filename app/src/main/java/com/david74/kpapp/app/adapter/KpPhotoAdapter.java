@@ -1,15 +1,22 @@
 package com.david74.kpapp.app.adapter;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.david74.kpapp.R;
 import com.david74.kpapp.app.model.Model;
 import com.david74.kpapp.app.viewholder.BaseViewHolder;
+import com.david74.kpapp.util.screen.Screen;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -21,7 +28,7 @@ import butterknife.InjectView;
 public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHolder> {
 
     private List<Model> modelList;
-
+    private int lastAnimatedPosition = -1;
     private SparseArray<Double> positionHeightRatios = new SparseArray<Double>();
 
     public KpPhotoAdapter() {
@@ -36,16 +43,46 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        runEnterAnimation(holder.itemView, position);
+
         Model photoModel = modelList.get(position);
-
         //holder.modelView.setDynamicRatio(getPositionRatio(position));
-
         ImageLoader.getInstance().displayImage(photoModel.getImageUrl(), holder.modelView);
     }
 
     @Override
     public int getItemCount() {
         return modelList.size();
+    }
+
+    private void runEnterAnimation(final View view, int position) {
+        if (position > lastAnimatedPosition) {
+            lastAnimatedPosition = position;
+
+            Point screenSize = Screen.getScreenSize();
+
+            final int duration = 500;
+            ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", screenSize.y, 0);
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+            });
+
+            AnimatorSet set = new AnimatorSet();
+            set.play(animator);
+            set.setInterpolator(new DecelerateInterpolator());
+            set.setDuration(duration);
+            set.setStartDelay(50);
+            set.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    view.setVisibility(View.INVISIBLE);
+                }
+            });
+            set.start();
+        }
     }
 
     public void add(Model model) {
