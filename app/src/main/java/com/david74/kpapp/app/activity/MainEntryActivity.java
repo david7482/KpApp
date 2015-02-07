@@ -75,7 +75,6 @@ public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
         }
 
         albumsRecyclerView.setLayoutManager(layoutManager);
-        albumsRecyclerView.setItemAnimator(new SlideInLeftItemAnimator());
         albumsRecyclerView.addItemDecoration(decoration);
         albumsRecyclerView.setAdapter(kpAlbumAdapter);
         albumsRecyclerView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
