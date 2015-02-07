@@ -2,6 +2,7 @@ package com.david74.kpapp.app.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,14 +63,15 @@ public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
 
         LinearLayoutManager layoutManager;
         DividerItemDecoration decoration;
+        Drawable divider = getResources().getDrawable(R.drawable.shape_recycler_view_divider);
         int orientation = Screen.getScreenOrientation(this);
         if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE ||
             orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
             layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            decoration = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL_LIST);
+            decoration = new DividerItemDecoration(divider, DividerItemDecoration.HORIZONTAL);
         } else {
             layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
+            decoration = new DividerItemDecoration(divider, DividerItemDecoration.VERTICAL);
         }
 
         albumsRecyclerView.setLayoutManager(layoutManager);

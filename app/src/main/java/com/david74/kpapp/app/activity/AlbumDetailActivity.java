@@ -2,8 +2,10 @@ package com.david74.kpapp.app.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -61,21 +63,33 @@ public class AlbumDetailActivity extends BaseActivity implements KpAlbumDetailCo
 
         kpPhotoAdapter = new KpPhotoAdapter();
 
-        StaggeredGridLayoutManager layoutManager;
+        // Setup the layout manager
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
         {
             int orientation = Screen.getScreenOrientation(this);
             if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE ||
                 orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
-                layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
+                layoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
             } else {
-                layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                layoutManager.setOrientation(GridLayoutManager.VERTICAL);
             }
+
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                return ((position - 2) % 3 == 0) ? 4 : 2;
+                }
+            });
         }
+
+        // Add divider
+        Drawable divider = getResources().getDrawable(R.drawable.shape_recycler_view_divider);
+        photosRecycleView.addItemDecoration(new DividerItemDecoration(divider, DividerItemDecoration.HORIZONTAL));
+        photosRecycleView.addItemDecoration(new DividerItemDecoration(divider, DividerItemDecoration.VERTICAL));
 
         photosRecycleView.setAdapter(kpPhotoAdapter);
         photosRecycleView.setLayoutManager(layoutManager);
         photosRecycleView.setItemAnimator(new SlideInLeftItemAnimator());
-        photosRecycleView.addItemDecoration(new SpacesItemDecoration(this, 4));
         photosRecycleView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, final int position, long id) {

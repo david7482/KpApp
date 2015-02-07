@@ -113,7 +113,7 @@ abstract class ClickItemTouchListener implements RecyclerView.OnItemTouchListene
         }
 
         @Override
-        public boolean onSingleTapUp(MotionEvent event) {
+        public boolean onSingleTapConfirmed(MotionEvent event) {
             boolean handled = false;
 
             if (mTargetChild != null) {
