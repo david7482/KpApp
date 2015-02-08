@@ -35,7 +35,8 @@ public class KpApplication extends Application {
     // Create global configuration and initialize ImageLoader with this config
     void initUniversalImageLoader() {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(android.R.color.transparent)
+                .showImageOnLoading(R.color.material_grey_800)
+                .showImageForEmptyUri(R.color.material_grey_800)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .build();

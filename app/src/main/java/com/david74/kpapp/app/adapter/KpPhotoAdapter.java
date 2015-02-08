@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Point;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -30,9 +31,11 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
     private List<Model> modelList;
     private int lastAnimatedPosition = -1;
     private SparseArray<Double> positionHeightRatios = new SparseArray<Double>();
+    private GridLayoutManager layoutManager;
 
-    public KpPhotoAdapter() {
+    public KpPhotoAdapter(GridLayoutManager layoutManager) {
         modelList = new ArrayList<Model>();
+        this.layoutManager = layoutManager;
     }
 
     @Override
@@ -46,7 +49,6 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
         runEnterAnimation(holder.itemView, position);
 
         Model photoModel = modelList.get(position);
-        //holder.modelView.setDynamicRatio(getPositionRatio(position));
         ImageLoader.getInstance().displayImage(photoModel.getImageUrl(), holder.modelView);
     }
 
@@ -59,10 +61,11 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
         if (position > lastAnimatedPosition) {
             lastAnimatedPosition = position;
 
-            Point screenSize = Screen.getScreenSize();
+            final int startDelay = 50;
+            int delay = (position - layoutManager.findFirstCompletelyVisibleItemPosition()) * startDelay;
+            if (delay <= startDelay) delay = startDelay;
 
-            final int duration = 500;
-            ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", screenSize.y, 0);
+            ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", Screen.getScreenSize().y, 0);
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -73,8 +76,8 @@ public class KpPhotoAdapter extends RecyclerView.Adapter<KpPhotoAdapter.ViewHold
             AnimatorSet set = new AnimatorSet();
             set.play(animator);
             set.setInterpolator(new DecelerateInterpolator());
-            set.setDuration(duration);
-            set.setStartDelay(50);
+            set.setDuration(500);
+            set.setStartDelay(delay);
             set.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {

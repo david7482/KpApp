@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -54,14 +55,13 @@ public class AlbumDetailActivity extends BaseActivity implements KpAlbumDetailCo
         setContentView(R.layout.activity_album_detail);
         super.onCreate(savedInstanceState);
 
+        ViewCompat.setElevation(toolbar, Screen.convertDpToPixel(this, 6.0f));
         setSupportActionBar(toolbar);
 
         // Get album model from parcelable
         Intent intent = getIntent();
         Parcelable parcelable = intent.getParcelableExtra(AlbumDetailActivity.KEY_PARCELABLE);
         KpAlbumModel albumModel = Parcels.unwrap(parcelable);
-
-        kpPhotoAdapter = new KpPhotoAdapter();
 
         // Setup the layout manager
         GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
@@ -87,6 +87,7 @@ public class AlbumDetailActivity extends BaseActivity implements KpAlbumDetailCo
         photosRecycleView.addItemDecoration(new DividerItemDecoration(divider, DividerItemDecoration.HORIZONTAL));
         photosRecycleView.addItemDecoration(new DividerItemDecoration(divider, DividerItemDecoration.VERTICAL));
 
+        kpPhotoAdapter = new KpPhotoAdapter(layoutManager);
         photosRecycleView.setAdapter(kpPhotoAdapter);
         photosRecycleView.setLayoutManager(layoutManager);
         photosRecycleView.setOnItemClickListener(new ClickRecyclerView.OnItemClickListener() {

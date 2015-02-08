@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -57,9 +58,8 @@ public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
         setContentView(R.layout.activity_main_entry);
         super.onCreate(savedInstanceState);
 
+        ViewCompat.setElevation(toolbar, Screen.convertDpToPixel(this, 6.0f));
         setSupportActionBar(toolbar);
-
-        kpAlbumAdapter = new KpAlbumAdapter();
 
         LinearLayoutManager layoutManager;
         DividerItemDecoration decoration;
@@ -74,6 +74,7 @@ public class MainEntryActivity extends BaseActivity implements KpAlbumControl {
             decoration = new DividerItemDecoration(divider, DividerItemDecoration.VERTICAL);
         }
 
+        kpAlbumAdapter = new KpAlbumAdapter(layoutManager);
         albumsRecyclerView.setLayoutManager(layoutManager);
         albumsRecyclerView.addItemDecoration(decoration);
         albumsRecyclerView.setAdapter(kpAlbumAdapter);

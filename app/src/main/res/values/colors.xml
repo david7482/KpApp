@@ -7,6 +7,9 @@
     <item name="material_green_800" type="color">#00695C</item>
     <item name="material_pink_A400" type="color">#F50057</item>
     <item name="material_yellow_A200" type="color">#FFFF00</item>
+    <item name="material_grey_800" type="color">#424242</item>
+    <item name="material_grey_900" type="color">#212121</item>
+    <color name="background_material_dark">#ff303030</color>
 
     <!--Other colors-->
     <item name="material_lime_A100" type="color">#F4FF81</item>
